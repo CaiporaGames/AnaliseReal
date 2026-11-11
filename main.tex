@@ -1,0 +1,844 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=26mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usetikzlibrary{calc}
+
+\definecolor{azul}{HTML}{25465E}
+\definecolor{cinza}{HTML}{606C73}
+\definecolor{linha}{HTML}{A7B4B6}
+\hypersetup{colorlinks=true,linkcolor=azul,urlcolor=azul,
+  pdftitle={Reconstruir a analise real a partir de um quadrado — Caderno I},
+  pdfauthor={Caderno de investigacao matematica}}
+\setlength{\parindent}{13pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{cinza}Do quadrado à análise real}
+\fancyhead[R]{\footnotesize\color{cinza}Caderno I}
+\fancyfoot[C]{\footnotesize\thepage}
+\pagestyle{fancy}
+\titleformat{\section}{\large\bfseries\color{azul}}{\thesection.}{.55em}{}
+\titlespacing*{\section}{0pt}{17pt}{8pt}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\questao}[1]{\par\medskip\noindent\textit{#1}\par\smallskip}
+\newcommand{\assentado}[2]{%
+\par\medskip\noindent\begingroup\color{azul}\rule{\linewidth}{0.45pt}\par\smallskip
+\noindent\textbf{#1.}\enspace #2\par\endgroup\medskip}
+\newcommand{\nota}[1]{\par\smallskip\noindent{\small\color{cinza}\textit{#1}}\par\smallskip}
+\newcommand{\emaberto}[1]{\par\smallskip\noindent\textit{Em aberto:} #1\par\smallskip}
+
+\begin{document}
+\thispagestyle{empty}
+\vspace*{18mm}
+{\color{azul}\rule{28mm}{1.2pt}}\par\vspace{13mm}
+{\Huge\bfseries Reconstruir a análise real\\[4mm] a partir de um quadrado}\par
+\vspace{13mm}
+{\Large Caderno I}\par\vspace{3mm}
+{\large O lado de um quadrado de área $2$}\par
+\vspace{17mm}
+\begin{center}
+\begin{tikzpicture}[scale=1.12]
+\fill[azul!7] (0,0) rectangle (4.2,4.2);
+\draw[azul,line width=.9pt] (0,0) rectangle (4.2,4.2);
+\node[font=\Large] at (2.1,2.45) {$A=x^2$};
+\node[font=\Large] at (2.1,1.65) {$A=2\;?$};
+\node[below] at (2.1,0) {$x$};
+\node[left] at (0,2.1) {$x$};
+\end{tikzpicture}
+\end{center}
+\vfill
+\noindent\begin{minipage}{.94\linewidth}
+\small
+\textit{Neste caderno, uma definição não antecede a dificuldade que a tornou necessária, e um teorema não aparece antes da pergunta que o originou. Conservamos a ordem da descoberta: experimentar, duvidar, procurar uma razão, demonstrar e só então dar um nome ao que foi encontrado.}
+\end{minipage}
+\vspace{12mm}
+\newpage
+
+\section{Uma única figura e uma pergunta}
+
+Comecemos sem uma teoria de limites, sem números irracionais e sem qualquer afirmação sobre a existência dos números reais. Temos um quadrado. Se o seu lado mede $x$, a sua área é
+\[
+A=x^2.
+\]
+
+Queremos um quadrado cuja área seja exatamente $2$. A pergunta parece simples: \emph{quanto deve medir o seu lado?}
+
+Por enquanto, decidimos trabalhar \emph{apenas com números racionais}. Usaremos também a aritmética dos naturais e dos inteiros, mas não vamos supor que todo o comprimento geométrico já corresponde a algum número do nosso conjunto. Assim, escrever $x^2=2$ significa, neste momento, \emph{procurar} uma solução, não anunciar que ela existe.
+
+A primeira observação é imediata:
+\[
+1^2<2<2^2.
+\]
+Se houver um lado positivo com a área desejada, ele terá de estar entre $1$ e $2$. Não sabemos mais do que isso. Em vez de procurar uma fórmula, experimentemos outro lado racional.
+
+\questao{E se dividíssemos ao meio o intervalo de comprimentos entre $1$ e $2$?}
+
+O ponto médio é $3/2$. O quadrado de lado $3/2$ tem área
+\[
+\left(\frac32\right)^2=\frac94>2.
+\]
+É demasiado grande. Já não precisamos de procurar entre $3/2$ e $2$; basta continuar entre $1$ e $3/2$.
+
+Dividimos de novo esse intervalo ao meio:
+\[
+\frac{1+\frac32}{2}=\frac54,
+\qquad
+\left(\frac54\right)^2=\frac{25}{16}<2.
+\]
+Desta vez o quadrado é demasiado pequeno. Continuaremos entre $5/4$ e $3/2$.
+
+Aparece, sem termos precisado de uma teoria, uma regra que podemos executar repetidamente: em cada passo, experimentar o ponto médio e conservar a metade cujos extremos têm áreas, respetivamente, inferior e superior a $2$.
+
+\begin{center}
+\begin{tabular}{@{}c c c c@{}}
+\toprule
+Passo & Intervalo conservado & Área testada & Largura \\
+\midrule
+$0$ & $[1,2]$ & $1<2<4$ & $1$ \\
+$1$ & $[1,\frac32]$ & $\frac94>2$ & $\frac12$ \\
+$2$ & $[\frac54,\frac32]$ & $\frac{25}{16}<2$ & $\frac14$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Eis a primeira mudança de perspetiva: já não perguntamos apenas \emph{qual é o lado?}; perguntamos também \emph{como construir aproximações cada vez melhores?}
+
+\section{A regularidade escondida nas divisões}
+
+Ao contar as larguras dos intervalos, obtivemos
+\[
+1,\quad\frac12,\quad\frac14,\quad\frac18,\quad\ldots
+\]
+A conjectura natural é que, depois de $n$ divisões, a largura seja
+\[
+d_n=\frac{1}{2^n},\qquad n=0,1,2,\ldots
+\]
+A razão não depende das áreas: cada intervalo escolhido é uma metade do anterior. Assim, se a largura na etapa $n$ for $2^{-n}$, na seguinte será
+\[
+\frac12\,2^{-n}=2^{-(n+1)}.
+\]
+Como a largura inicial é $1=2^0$, a expressão mantém-se em cada etapa em que a construção prossegue.
+
+Para não termos de repetir sempre «o extremo esquerdo» e «o extremo direito», introduzimos a notação $a_n$ e $b_n$ para os extremos após $n$ divisões:
+\[
+[a_n,b_n],\qquad a_0=1,\quad b_0=2.
+\]
+Logo,
+\[
+\boxed{b_n-a_n=\frac1{2^n}.}
+\]
+
+\assentado{Definição que acabámos de precisar --- sucessão}{Uma \emph{sucessão de racionais} é uma atribuição de um número racional a cada índice natural. As listas $(a_n)$, $(b_n)$ e $(d_n)$ que a nossa construção produziu são exemplos de sucessões.}
+
+Há uma ressalva lógica: se algum ponto médio racional tivesse quadrado igual a $2$, a procura terminaria. Ainda não provámos que isso é impossível. Quando mais adiante estudarmos a existência do lado racional, poderemos justificar que as duas sucessões de extremos estão definidas em todos os passos.
+
+Nesta altura surgiu a primeira impressão intuitiva: \emph{os intervalos ficam tão pequenos que a área deverá aproximar-se de $2$}. Mas uma largura é uma diferença de comprimentos; o nosso objetivo é uma área. Serão estas duas diferenças controladas uma pela outra?
+
+\section{O erro no comprimento controla o erro na área?}
+
+Tomemos dois quadrados, de lados positivos $a<b$. A diferença entre as suas áreas é
+\[
+b^2-a^2.
+\]
+Ao fatorizar, encontramos
+\[
+\boxed{b^2-a^2=(b-a)(b+a).}
+\]
+Esta identidade revelou algo mais do que esperávamos. A diferença de áreas contém explicitamente a diferença de comprimentos que sabemos reduzir.
+
+Há aqui também uma ideia que fica guardada para outra investigação. Ao dividir a diferença das áreas pela diferença dos lados, obtemos
+\[
+\frac{b^2-a^2}{b-a}=a+b\qquad(a\ne b).
+\]
+Se os lados se tornam muito próximos, a expressão sugere um valor próximo do dobro de um dos lados. Ainda não sabemos formalizar o que significa «tornar-se muito próximo»; não precisamos de o fazer agora. A pergunta sobre a variação da área voltará quando investigarmos a função $x\mapsto x^2$.
+
+Regressemos ao problema atual. Os extremos dos nossos intervalos satisfazem
+\[
+1\le a_n<b_n\le2.
+\]
+Portanto, $a_n+b_n<4$. Em particular,
+\[
+0<b_n^2-a_n^2=(b_n-a_n)(b_n+a_n)<4(b_n-a_n).
+\]
+A constante $4$ não apareceu por adivinhação: primeiro observámos que $b_n\le2$ permite escrever $a_n+b_n\le2+a_n$; depois, como $a_n<2$, obtivemos $2+a_n<4$. Ao contrário de $2+a_n$, o número $4$ já não depende da etapa escolhida.
+
+Substituindo a largura conhecida,
+\[
+\boxed{0<b_n^2-a_n^2<\frac4{2^n}.}
+\]
+Como, por construção, $a_n^2<2<b_n^2$, as duas diferenças que realmente nos interessam ficam compreendidas entre $0$ e a diferença total de áreas:
+\[
+0<2-a_n^2<\frac4{2^n},
+\qquad
+0<b_n^2-2<\frac4{2^n}.
+\]
+
+Já sabemos mais do que «o intervalo é pequeno»: temos uma expressão que \emph{garante} quão perto de $2$ estão as áreas dos quadrados que construímos.
+
+\assentado{Proposição nascida da comparação das áreas}{Em cada etapa da construção, tanto a falta de área do quadrado de lado $a_n$ como o excesso de área do quadrado de lado $b_n$ são inferiores a $4/2^n$.}
+
+Não precisamos de uma nova demonstração sob o enunciado: acabámos de a fazer ao fatorizar a diferença das áreas e limitar $a_n+b_n$ por $4$.
+
+\section{Quantos passos bastam? E se a precisão for qualquer uma?}
+
+A primeira pergunta foi concreta: \emph{quantas divisões garantem um erro de área inferior a $1/1000$?}
+
+Basta exigir
+\[
+\frac4{2^n}<\frac1{1000}
+\quad\Longleftrightarrow\quad
+2^n>4000.
+\]
+Como $2^{11}=2048$ e $2^{12}=4096$, a nossa estimativa garante o erro desejado a partir de \emph{doze} divisões. Não foi necessário construir nem calcular as doze áreas.
+
+A pergunta seguinte é menos numérica e mais exigente:
+
+\questao{Se substituirmos $1/1000$ por qualquer racional positivo $\varepsilon$, conseguiremos sempre um número de divisões suficiente?}
+
+Escrevamos $\varepsilon=p/q$, com $p,q$ naturais positivos. Pretendemos tornar
+\[
+\frac4{2^n}<\frac pq.
+\]
+Foi tentador dizer simplesmente que $2^n$ cresce sem limite superior. Mas essa afirmação, num percurso que pretende reconstruir os fundamentos, merece uma justificação. Em vez de a supormos, fomos procurar algo mais elementar.
+
+Os primeiros valores sugeriram:
+\[
+2^1=2,\qquad 2^2=4>3,\qquad 2^3=8>4,\qquad\ldots
+\]
+Daqui nasceu a conjectura
+\[
+2^n\ge n+1.
+\]
+Podemos demonstrá-la por indução. Para $n=1$, a igualdade é verdadeira. Suponhamos que a desigualdade vale para $n=k$:
+\[
+2^k\ge k+1.
+\]
+Multiplicando ambos os membros por $2$,
+\[
+2^{k+1}\ge2k+2\ge k+2
+\]
+porque $k\ge0$. Assim, a propriedade passa do índice $k$ para o índice $k+1$. Ela vale, portanto, para todo $n\ge1$; e também para $n=0$, já que $2^0=1$.
+
+\assentado{Proposição obtida por indução}{Para todo $n\in\N$, vale $2^n\ge n+1$.}
+
+Agora sim, voltemos ao erro. Como $2^n\ge n+1$,
+\[
+\frac4{2^n}\le\frac4{n+1}.
+\]
+Para obter $4/(n+1)<p/q$, basta escolher
+\[
+n>\frac{4q}{p}-1.
+\]
+Nem sequer precisamos de calcular essa fração: sendo $p\ge1$, a escolha $n=4q$ funciona, pois
+\[
+\frac4{2^{4q}}\le\frac4{4q+1}<\frac1q\le\frac pq=\varepsilon.
+\]
+E, como $2^n$ cresce a cada passo, a mesma precisão fica garantida em todos os passos seguintes.
+
+A expressão «aproximar-nos tanto quanto quisermos» ganhou, assim, uma tradução aritmética precisa: dado qualquer racional positivo $\varepsilon$, podemos encontrar um índice a partir do qual os erros de área dos dois extremos são menores do que $\varepsilon$.
+
+\assentado{Teorema que a pergunta nos levou a demonstrar --- precisão arbitrária}{Para qualquer $\varepsilon\in\Q$ com $\varepsilon>0$, existe $N\in\N$ tal que, para todo $n\ge N$, temos $0<2-a_n^2<\varepsilon$ e $0<b_n^2-2<\varepsilon$.}
+
+Não demos ainda uma definição formal de limite. A demonstração só usou desigualdades entre racionais e o comportamento dos naturais.
+
+\paragraph{Um fundamento que se tornou necessário.}
+Foi aqui que a aritmética dos naturais começou a exigir atenção. Usámos a indução; e, ao escolher índices cada vez maiores, apoiámo-nos no facto de que os naturais não terminam num maior elemento. Na reconstrução completa, estes factos serão justificados a partir dos axiomas de Peano: cada natural tem sucessor, e a indução permite propagar propriedades de um caso inicial para todos os seguintes. Não abriremos um capítulo desligado da experiência; este é o primeiro lugar onde esse fundamento se mostrou indispensável.
+
+\section{Aproximar não é o mesmo que encontrar}
+
+Obtivemos aproximações com qualquer precisão racional positiva. Mas a pergunta inicial continua sem resposta: \emph{existe de facto um racional $x$ com $x^2=2$?}
+
+Nada no nosso método de aproximação garante que a resposta seja afirmativa. Talvez cada etapa nos deixe mais perto e, ainda assim, nenhum racional seja o lado procurado. Isto deixou de ser apenas uma impressão quando formulámos uma conjectura:
+
+\questao{Conjectura: não existe $x\in\Q$ tal que $x^2=2$. Poderemos prová-la usando apenas aritmética inteira?}
+
+Vamos supor o contrário. Se tal racional positivo existisse, poderíamos escrevê-lo como $p/q$ com $p,q$ naturais positivos, e teríamos
+\[
+\left(\frac pq\right)^2=2
+\quad\Longrightarrow\quad
+p^2=2q^2.
+\]
+Logo $p^2$ seria par. Mas será que isso nos permite afirmar que $p$ é par?
+
+Um inteiro ímpar tem a forma $2k+1$, e
+\[
+(2k+1)^2=4k^2+4k+1=2(2k^2+2k)+1,
+\]
+que também é ímpar. Assim, por contraposição, \emph{se o quadrado de um inteiro é par, esse inteiro é par}. Foi esta pequena observação sobre paridade que permitiu continuar.
+
+Em vez de procurar imediatamente uma contradição com a fração irredutível, surgiu outra ideia: \emph{e se uma solução nos permitisse construir uma segunda solução com números inteiros menores?}
+
+Se existir ao menos um par positivo $(p,q)$ que satisfaça $p^2=2q^2$, escolhamos um deles cujo primeiro número $p$ seja o menor possível. Tal escolha usa uma propriedade dos naturais: todo conjunto não vazio de naturais tem elemento mínimo. Chamaremos a essa propriedade \emph{boa ordenação}; ela será retomada no nosso estudo dos fundamentos dos naturais.
+
+Como $p^2$ é par, existe $k>0$ com $p=2k$. Substituindo,
+\[
+4k^2=2q^2
+\quad\Longrightarrow\quad
+q^2=2k^2.
+\]
+Pela mesma observação de paridade, $q$ também é par. Escrevendo $q=2t$, encontramos
+\[
+4t^2=2k^2
+\quad\Longrightarrow\quad
+k^2=2t^2.
+\]
+O par $(k,t)$ é, portanto, outra solução inteira positiva da mesma equação. No entanto,
+\[
+k=\frac p2<p.
+\]
+Acabámos de produzir uma solução com primeiro número menor do que aquele que tínhamos escolhido como mínimo. Isso é impossível.
+
+A hipótese de existência de $p/q$ era falsa.
+
+\assentado{Teorema que resolveu a conjectura --- inexistência racional}{Não existe número racional $x$ cujo quadrado seja $2$.}
+
+É neste ponto, e não antes, que vale a pena dar nome ao método: encontrámos uma \emph{descida infinita}. Uma suposta solução positiva obriga a uma solução menor; esta, por sua vez, poderia ser reduzida novamente. A boa ordenação dos naturais impede que essa descida continue.
+
+A prova também resolve uma dúvida que deixáramos suspensa: nunca encontraremos um ponto médio racional de quadrado $2$. Por isso, o processo de subdivisão pode realmente prosseguir para todos os índices naturais.
+
+\section{Intervalos cheios de racionais, mas sem um racional comum}
+
+Agora temos duas descobertas que parecem puxar em sentidos opostos. Os intervalos são cada vez menores, e as áreas dos seus extremos aproximam-se de $2$ com qualquer precisão. Por outro lado, nenhum racional tem área exatamente $2$.
+
+Foi natural perguntar:
+
+\questao{Será possível existir um racional $r$ que pertença simultaneamente a todos os intervalos que construímos?}
+
+A primeira tentativa comparou diretamente $r$ com $2$. Mas havia um erro de natureza geométrica: $2$ é a \emph{área} desejada; $r$ seria um \emph{comprimento}. O que podemos comparar corretamente são os quadrados dos comprimentos.
+
+Suponhamos, então, que existe $r\in\Q$ tal que $a_n\le r\le b_n$ para todo $n$. Como os três números são positivos,
+\[
+a_n^2\le r^2\le b_n^2.
+\]
+E sabemos, em todos os passos, que
+\[
+a_n^2<2<b_n^2.
+\]
+O número $r^2$ e o número $2$ ficam, portanto, dentro do mesmo intervalo de áreas. A distância entre eles é menor do que a largura desse intervalo:
+\[
+\boxed{|r^2-2|<b_n^2-a_n^2<\frac4{2^n}}
+\qquad\text{para todo }n.
+\]
+
+Aqui apareceu a dificuldade decisiva. E se $r^2$ não fosse igual a $2$? Nesse caso,
+\[
+\delta=|r^2-2|
+\]
+seria um racional positivo \emph{fixo}. A desigualdade acabada de obter diria que $\delta<4/2^n$ para todos os índices. Mas já demonstrámos que, para qualquer racional positivo --- incluindo $\varepsilon=\delta$ ---, podemos escolher $N$ de modo que $4/2^N<\delta$.
+
+Aplicando as duas afirmações ao \emph{mesmo} índice $N$, resulta
+\[
+\delta<\frac4{2^N}<\delta,
+\]
+isto é, $\delta<\delta$. Absurdo.
+
+Concluímos que, se um racional $r$ pertencesse a todos os intervalos, teria necessariamente de satisfazer $r^2=2$. Mas a nossa prova por descida mostrou que tal racional não existe. Logo, não existe nenhum racional comum a todos os intervalos.
+
+\assentado{Teorema nascido da pergunta --- interseção racional vazia}{Os intervalos $[a_n,b_n]$ construídos por subdivisões sucessivas satisfazem
+\[
+\bigcap_{n=0}^{\infty}\bigl([a_n,b_n]\cap\Q\bigr)=\varnothing.
+\]}
+
+O resultado é mais surpreendente do que parece: cada um dos intervalos contém infinitos racionais. Por exemplo, para qualquer inteiro $m\ge2$, o número
+\[
+a_n+\frac{b_n-a_n}{m}
+\]
+é racional e pertence ao intervalo. Contudo, não há \emph{um único racional} que esteja em todos os intervalos ao mesmo tempo.
+
+Não afirmámos que a interseção será vazia em qualquer sistema de números que venha a ser construído. Demonstrámos precisamente a sua vacuidade \emph{dentro de $\Q$}. Essa distinção será essencial para o problema que nos espera.
+
+\section{Os extremos estão realmente a mover-se?}
+
+Antes de inventar novos números, voltámos a observar a nossa própria construção. Tínhamos duas listas de extremos. Como se comportam de uma etapa para a seguinte?
+
+Se $t_n=(a_n+b_n)/2$ é o ponto médio, há dois casos possíveis, já que $t_n^2\ne2$.
+
+Se $t_n^2<2$, o intervalo conservado é $[t_n,b_n]$ e, portanto,
+\[
+a_{n+1}=t_n>a_n,\qquad b_{n+1}=b_n.
+\]
+Se $t_n^2>2$, conservamos $[a_n,t_n]$ e temos
+\[
+a_{n+1}=a_n,\qquad b_{n+1}=t_n<b_n.
+\]
+A observação é simples, mas a conclusão já tem alcance geral: em nenhum passo o extremo esquerdo diminui, e em nenhum passo o extremo direito aumenta. Assim,
+\[
+\boxed{a_{n+1}\ge a_n},\qquad
+\boxed{b_{n+1}\le b_n}.
+\]
+Além disso, os intervalos nunca saem de $[1,2]$:
+\[
+1\le a_n<b_n\le2.
+\]
+
+Só agora temos motivo para dar nomes ao que acabámos de encontrar.
+
+\assentado{Definição motivada pela construção --- monotonia}{Uma sucessão $(u_n)$ é \emph{não decrescente} quando $u_{n+1}\ge u_n$ para todos os índices; é \emph{não crescente} quando $u_{n+1}\le u_n$. Dizemos que uma sucessão com um desses comportamentos é \emph{monótona}.}
+
+\assentado{Proposição que acabámos de verificar}{A sucessão $(a_n)$ é não decrescente, a sucessão $(b_n)$ é não crescente e ambas estão limitadas entre $1$ e $2$.}
+
+A demonstração já está nos dois casos anteriores; repeti-la aqui seria esconder a forma como o resultado apareceu.
+
+\section{A pergunta que fica à nossa espera}
+
+A sucessão $(a_n)$ cresce, mas não ultrapassa $2$. Todavia, $2$ não é o único racional maior ou igual a todos os seus termos; por exemplo, $3/2$ também o é.
+
+\questao{Entre todos os racionais $c$ que satisfazem $a_n\le c$ para cada $n$, existirá um \emph{menor} deles?}
+
+Foi assim que surgiu a necessidade de distinguir um número que fica acima de todos os valores da sucessão de um eventual \emph{menor} número com essa propriedade.
+
+\assentado{Definição necessária para enunciar a pergunta --- majorante}{Um racional $c$ é um \emph{majorante} de um conjunto de racionais $E$ se $x\le c$ para todo $x\in E$. Analogamente, $d$ é um \emph{minorante} se $d\le x$ para todo $x\in E$.}
+
+Até aqui, ``majorante'' significa apenas um racional que está acima de todos os termos. A nossa pergunta exige mais: haverá, \emph{entre esses majorantes racionais}, um que seja o menor de todos?
+
+\section{Se existisse um menor majorante, onde estaria ele?}
+
+Vamos supor que sim. Seja $c\in\Q$ o menor racional que fica acima de todos os termos da sucessão $(a_n)$. Então
+\[
+ a_n\le c \qquad\text{para cada }n.
+\]
+
+Os intervalos que construímos dão-nos outra informação. Cada $b_n$ está acima de \emph{todos} os $a_k$, e não apenas de $a_n$. Com efeito, se $k\le n$, então $a_k\le a_n<b_n$; se $k>n$, o encaixe dos intervalos garante $a_k\le b_k\le b_n$. Logo, $b_n$ é um majorante da sucessão inteira.
+
+Mas tínhamos escolhido $c$ como o \emph{menor} majorante racional. Assim, para cada $n$,
+\[
+ c\le b_n.
+\]
+
+Combinando o que obtivemos,
+\[
+ \boxed{a_n\le c\le b_n\qquad\text{para todo }n.}
+\]
+
+Ora, este foi exatamente o cenário que já excluímos: demonstrámos que não existe um racional pertencente simultaneamente a todos os intervalos $[a_n,b_n]$. A existência de $c$ levaria, portanto, a uma contradição.
+
+A pergunta recebeu uma resposta negativa. A sucessão cresce, nunca ultrapassa $2$ e tem muitos majorantes racionais, mas \emph{nenhum deles é o menor de todos}.
+
+Só agora faz sentido fixar a linguagem para aquilo cuja existência acabámos de investigar.
+
+\assentado{Definição motivada pela pergunta --- supremo em $\Q$}{Se $E\subseteq\Q$ tem majorantes racionais, dizemos que $s\in\Q$ é o \emph{supremo de $E$ em $\Q$} quando $s$ é majorante de $E$ e $s\le m$ para qualquer outro majorante racional $m$ de $E$. Escrevemos $\sup_{\Q}E=s$ quando esse racional existe.}
+
+\assentado{Teorema obtido pela contradição}{O conjunto $\{a_n:n\in\N\}$ é limitado superiormente em $\Q$, mas não possui supremo em $\Q$.}
+
+A demonstração do teorema é a investigação que acabámos de fazer. Não a repetiremos sob o enunciado.
+
+\section{Será uma falha de toda a sucessão crescente?}
+
+Seria precipitado concluir que nenhuma sucessão racional crescente e limitada possui supremo racional. Para pôr essa possível generalização à prova, procurámos outra sucessão simples. A experiência escolhida foi
+\[
+ u_n=1-\frac1{2^n},\qquad n=1,2,3,\ldots
+\]
+
+Os primeiros valores são
+\[
+ \frac12,\quad\frac34,\quad\frac78,\quad\frac{15}{16},\quad\ldots
+\]
+
+Em cada passo acrescentamos uma quantidade positiva, pois
+\[
+ u_{n+1}-u_n=\frac1{2^{n+1}}>0.
+\]
+
+Os termos crescem, mas nenhum chega a $1$: temos $u_n<1$ para todo $n$. Assim, $1$ é um majorante. Faltava saber se é o \emph{menor}.
+
+\questao{Poderá haver um majorante racional $c<1$?}
+
+Se houvesse, a diferença $\varepsilon=1-c$ seria um racional positivo. Já tínhamos demonstrado, ao estudar o erro das áreas, que há potências de $2$ suficientemente grandes para obter
+\[
+ \frac1{2^N}<\varepsilon.
+\]
+
+Escolhendo esse índice na nossa sucessão,
+\[
+ u_N=1-\frac1{2^N}>1-\varepsilon=c.
+\]
+
+Encontrámos um termo da sucessão acima de $c$, contrariando a afirmação de que $c$ era majorante. Logo, nenhum racional menor do que $1$ pode majorar todos os $u_n$.
+
+\assentado{Teorema nascido do segundo exemplo}{A sucessão $u_n=1-2^{-n}$ é crescente, é limitada superiormente e satisfaz
+\[
+ \sup_{\Q}\{u_n:n\ge1\}=1.
+\]}
+
+A comparação alterou a nossa compreensão do problema. As duas sucessões são crescentes e limitadas. Em nenhuma precisamos de atingir o valor que procuramos. Mesmo assim, uma tem supremo racional e a outra não. Portanto, \emph{não atingir um valor nos primeiros passos, nem mesmo em qualquer passo finito, não explica por si só a ausência de supremo}.
+
+\section{Do número um a qualquer alvo racional}
+
+A sequência $u_n$ levou a outra ideia: se já sabemos aproximar $1$ por racionais, poderíamos fazer o mesmo com qualquer racional $r=a/b$?
+
+Experimentemos multiplicar todos os termos pelo racional escolhido:
+\[
+ x_n=r\left(1-\frac1{2^n}\right).
+\]
+
+Sem precisar de saber ainda o que significa formalmente ``convergir'', podemos medir a diferença relativamente ao alvo:
+\[
+ \boxed{|x_n-r|=\frac{|r|}{2^n}.}
+\]
+
+Se $r=0$, a diferença é sempre nula. Se $r\ne0$, para qualquer precisão racional positiva $\varepsilon$ podemos escolher $n$ suficientemente grande para que $2^{-n}<\varepsilon/|r|$. A diferença fica então inferior a $\varepsilon$.
+
+Desta maneira construímos, \emph{para cada racional}, uma sucessão racional cujos termos ficam arbitrariamente próximos dele. Não se trata de uma única sucessão que percorra todos os racionais: trata-se de uma família de construções, uma para cada alvo escolhido. Para $r<0$, a sucessão resultante é decrescente, mas a estimativa da distância continua válida.
+
+Aqui nasceu uma dificuldade de linguagem. Já dissemos muitas vezes que os termos ``se aproximam'', ou que a diferença ``pode ficar tão pequena quanto quisermos''. Como escrever isso de modo que a afirmação possa ser provada, negada e utilizada noutras demonstrações?
+
+\section{Quando é legítimo dizer que uma sucessão se aproxima de um número?}
+
+Começámos por propor que uma sucessão $(x_n)$ se aproxima de um racional $c$ quando a distância $|x_n-c|$ é menor do que uma precisão positiva $\varepsilon$. Logo se tornou evidente que não precisamos de controlar o primeiro termo: para $u_n$ e a precisão $1/4$, por exemplo,
+\[
+ |u_1-1|=\frac12>\frac14,
+\]
+
+embora os termos seguintes acabem por ficar mais próximos de $1$. Por isso, a condição tem de poder começar \emph{a partir de certo índice}, e manter-se em todos os índices posteriores.
+
+Uma segunda tentativa dizia, em essência: existe um natural $N$ tal que $|x_n-c|<\varepsilon$ para todo $n>N$. Mas faltava esclarecer \emph{quem escolhe} $\varepsilon$. Seria suficiente encontrar uma precisão favorável, ou a condição teria de resistir a qualquer precisão exigida?
+
+\questao{Poderia a sucessão constante $x_n=3$ ser considerada como aproximando-se de $c=2$?}
+
+Se bastasse encontrar \emph{algum} $\varepsilon>0$, poderíamos escolher $\varepsilon=2$. Nesse caso,
+\[
+ |x_n-2|=|3-2|=1<2
+\]
+
+para \emph{todos} os índices. A definição aceitaria que uma sucessão eternamente igual a $3$ se aproximasse de $2$, sem nunca diminuir a distância entre ambos. Isto não corresponde à propriedade que procuramos.
+
+Escolhendo, porém, $\varepsilon=1/2$, já temos $|x_n-2|=1\not<1/2$, independentemente de quão longe avancemos. O exemplo mostrou que a exigência deve valer \emph{para toda precisão racional positiva}, e não apenas para alguma.
+
+Resta um cuidado lógico: podemos pedir um índice $N$ diferente para cada precisão. Quando exigimos uma precisão menor, talvez precisemos de avançar mais na sucessão. Foi assim que chegámos à seguinte formulação.
+
+\assentado{Definição construída pela investigação --- limite racional de uma sucessão}{Uma sucessão $(x_n)$ de números racionais \emph{converge em $\Q$} para um racional $c$ quando
+\[
+ \boxed{\forall\varepsilon\in\Q_{>0},\ \exists N\in\N,\ \forall n>N:\ |x_n-c|<\varepsilon.}
+\]
+Nesse caso, escrevemos $\displaystyle\lim_{n\to\infty}x_n=c$, entendendo que o limite pertence a $\Q$.}
+
+Reparemos na ordem das escolhas. Primeiro é dada uma precisão $\varepsilon$ qualquer; \emph{depois} podemos escolher um índice $N$ adequado a essa precisão; \emph{a partir daí}, todos os termos satisfazem a desigualdade. Não exigimos monotonia na definição: ela surgiu nos nossos primeiros exemplos, mas a condição final fala apenas de distâncias.
+
+Podemos agora testar a definição na mesma sucessão que motivou a discussão. Dado $\varepsilon\in\Q_{>0}$, a propriedade aritmética já demonstrada permite escolher $N$ com $2^{-N}<\varepsilon$. Então, para todo $n>N$,
+\[
+ |u_n-1|=\frac1{2^n}<\frac1{2^N}<\varepsilon.
+\]
+
+Portanto, \emph{segundo a definição que acabámos de construir}, a sucessão $(u_n)$ converge em $\Q$ para $1$. O mesmo argumento, com $|r|/2^n$, justifica a construção para cada racional $r$.
+
+\assentado{Proposição agora demonstrada com a nova definição}{Para cada $r\in\Q$, a sucessão $x_n=r(1-2^{-n})$ converge em $\Q$ para $r$. Em particular, $\lim_{n\to\infty}u_n=1$.}
+
+\section{Regressar ao quadrado com uma linguagem nova}
+
+Quando começámos, nem sequer sabíamos distinguir a frase informal ``fica cada vez mais perto'' da afirmação rigorosa de que uma sucessão possui um limite. Agora já podemos fazê-lo \emph{dentro dos racionais}.
+
+O nosso quadrado continua, contudo, a desafiar-nos. As sucessões $(a_n)$ e $(b_n)$ são monótonas, têm extremos cada vez mais próximos e satisfazem
+\[
+ b_n-a_n=\frac1{2^n}.
+\]
+
+Sabemos igualmente que nenhum racional pertence a todos os intervalos. Mas, neste ponto da investigação, ainda não demonstrámos diretamente, a partir da definição recém-construída, se $(a_n)$ e $(b_n)$ possuem algum limite \emph{em $\Q$}.
+
+\questao{Se $(a_n)$ convergisse para um racional $c$, a sua monotonia obrigaria $c$ a ser majorante de todos os seus termos? E que relação teria esse $c$ com os extremos $b_n$?}
+
+Esta será a próxima pergunta. Não introduziremos ainda um número novo para preencher o que parece faltar aos racionais, nem utilizaremos propriedades de limites que ainda não demonstrámos. A definição acabou de nascer; vamos começar por descobrir o que conseguimos provar com ela.
+
+\section{Um limite pode ficar abaixo de um termo de uma sucessão crescente?}
+
+A definição de convergência tinha acabado de nascer. Quisemos então regressar à sucessão $(a_n)$ do quadrado. Já sabíamos que era crescente e que não possuía supremo racional. Se convergisse para algum $c\in\Q$, o que poderíamos dizer sobre esse número?
+
+A primeira tentativa foi afirmar imediatamente que o limite seria um majorante. Mas isso era precisamente o que faltava demonstrar. Formulámos então uma pergunta mais pequena:
+
+\questao{Se uma sucessão crescente converge para $c$, poderá algum dos seus termos ultrapassar $c$?}
+
+Suponhamos, para experimentar essa possibilidade, que existe um índice $k$ com $x_k>c$. A monotonia obrigaria todos os termos seguintes a satisfazer
+\[
+ x_n\ge x_k>c\qquad(n\ge k).
+\]
+Se escrevermos $d=x_k-c>0$, teremos $|x_n-c|\ge d$ para todos os $n\ge k$. Mas a convergência para $c$ permite exigir uma precisão menor do que essa distância fixa. Escolhendo $\varepsilon=d/2$, existe $N$ tal que $|x_n-c|<d/2$ sempre que $n>N$. Escolhendo um mesmo índice $n>N$ e $n\ge k$, obteríamos
+\[
+ d\le |x_n-c|<\frac d2,
+\]
+uma impossibilidade. Assim, nenhum termo pode ultrapassar $c$; o número $c$ é majorante.
+
+A palavra \emph{majorante}, porém, não resolve ainda a questão do \emph{menor} majorante. Poderia existir outro racional $b<c$ que também ficasse acima de todos os termos?
+
+\questao{O que acontece se a precisão escolhida for metade da distância entre $b$ e $c$?}
+
+Como $c-b>0$, tomamos $\varepsilon=(c-b)/2$. A convergência garante que, para todo $n$ suficientemente grande,
+\[
+ |x_n-c|<\frac{c-b}{2}.
+\]
+Da desigualdade do lado esquerdo extraímos
+\[
+ x_n>c-\frac{c-b}{2}=\frac{c+b}{2}>b.
+\]
+Encontrámos um termo maior do que $b$: portanto, $b$ não era majorante. Qualquer racional menor do que $c$ falha dessa maneira.
+
+A pergunta inicial ficou respondida, e podemos agora registar o resultado sem repetir a sua demonstração.
+
+\assentado{Teorema descoberto --- limite e supremo}{Se uma sucessão não decrescente de racionais converge em $\Q$ para $c\in\Q$, então $c$ é o supremo racional do conjunto dos seus termos.}
+
+Aplicado à nossa sucessão $(a_n)$, o resultado tem uma consequência imediata: se ela convergisse em $\Q$, teria um supremo em $\Q$. Mas já demonstrámos que esse supremo não existe. Logo, $(a_n)$ não converge para qualquer racional.
+
+É importante não trocar a conclusão: \emph{não convergir em $\Q$} não significa ainda que tenhamos construído algum outro número para o qual a sucessão convirja.
+
+\section{E se comparássemos os termos entre si?}
+
+A ausência de limite racional não apagou uma observação do início da investigação. Os extremos dos nossos intervalos ficam cada vez mais próximos. Além disso, para $m>n$, os intervalos encaixados dão
+\[
+ a_n\le a_m\le b_n.
+\]
+Assim,
+\[
+ 0\le a_m-a_n\le b_n-a_n=\frac1{2^n},
+ \qquad\text{ou seja,}\qquad
+ \boxed{|a_m-a_n|\le\frac1{2^n}}.
+\]
+A primeira tentativa de usar as diferenças de áreas tinha-nos ensinado a controlar distâncias. Agora percebemos que podemos controlar a distância entre \emph{dois termos} sem mencionar um número desconhecido.
+
+\questao{Para uma precisão racional positiva qualquer $\varepsilon$, poderemos fazer com que quaisquer dois termos suficientemente avançados distem menos do que $\varepsilon$?}
+
+A escolha foi a mesma que utilizámos nas aproximações do quadrado: tomar $N$ de modo que $2^{-N}<\varepsilon$. Se $m,n>N$, podemos supor $m>n$ (se forem iguais, a distância é zero). Pela estimativa anterior,
+\[
+ |a_m-a_n|\le\frac1{2^n}\le\frac1{2^N}<\varepsilon.
+\]
+A conjectura ficou demonstrada. Só então damos um nome à propriedade que encontrámos.
+
+\assentado{Definição motivada pela comparação dos termos --- condição de Cauchy}{Uma sucessão racional $(x_n)$ satisfaz a \emph{condição de Cauchy} se, para todo $\varepsilon\in\Q_{>0}$, existe $N\in\N$ tal que $|x_m-x_n|<\varepsilon$ para quaisquer $m,n>N$.}
+
+\assentado{Proposição obtida da nossa estimativa}{A sucessão $(a_n)$ é de Cauchy, embora não converja em $\Q$.}
+
+Esta diferença de comportamento é precisamente o que a nossa figura geométrica nos obrigou a reconhecer: a aproximação mútua dos termos é uma propriedade que conseguimos provar \emph{sem conhecer nem pressupor o destino comum}.
+
+\section{Convergir obriga os termos a aproximarem-se uns dos outros?}
+
+Tínhamos duas noções: convergir para um racional $c$ e satisfazer a condição de Cauchy. Qual das duas seria mais forte? Começámos pela direção que parecia mais acessível.
+
+\questao{Se todos os termos suficientemente avançados ficam perto de $c$, não ficarão também perto uns dos outros?}
+
+A identidade
+\[
+ x_m-x_n=(x_m-c)+(c-x_n)
+\]
+permite usar a desigualdade triangular:
+\[
+ |x_m-x_n|\le |x_m-c|+|x_n-c|.
+\]
+Dada a precisão $\varepsilon>0$, a convergência para $c$ fornece um índice $N$ a partir do qual ambas as parcelas são menores do que $\varepsilon/2$. Daí resulta, para todos os $m,n>N$,
+\[
+ |x_m-x_n|<\frac\varepsilon2+\frac\varepsilon2=\varepsilon.
+\]
+A demonstração está inteira nesta passagem.
+
+\assentado{Teorema descoberto --- convergência implica Cauchy}{Toda sucessão de racionais que converge em $\Q$ satisfaz a condição de Cauchy.}
+
+A pergunta inevitável foi a inversa: \emph{será que toda sucessão de Cauchy converge em $\Q$?} Não precisámos de inventar outro exemplo. A nossa $(a_n)$ satisfaz a condição de Cauchy, mas não possui supremo racional; pelo teorema anterior sobre sucessões crescentes, não pode convergir em $\Q$.
+
+\assentado{Contraexemplo encontrado no próprio quadrado}{A condição de Cauchy não implica convergência em $\Q$. A sucessão $(a_n)$ é um contraexemplo.}
+
+Já não podemos confundir «os termos ficam tão próximos uns dos outros quanto quisermos» com «existe um racional para o qual convergem». Essa diferença será o ponto de partida da próxima construção.
+
+\section{Duas maneiras de aproximar o mesmo comprimento}
+
+Voltámos às duas sequências do quadrado, $(a_n)$ e $(b_n)$. São diferentes, mas satisfazem
+\[
+ |a_n-b_n|=\frac1{2^n}.
+\]
+Para qualquer precisão racional positiva, a distância entre os termos correspondentes acaba por ficar abaixo dessa precisão. Talvez não precisemos de escolher uma delas como \emph{a} representação do comprimento procurado.
+
+Para completar a verificação, também $(b_n)$ é de Cauchy. Com efeito, se $m>n$, o encaixe dos intervalos dá $a_n\le b_m\le b_n$, donde
+\[
+ |b_m-b_n|\le b_n-a_n=\frac1{2^n}.
+\]
+A mesma escolha de $N$ que utilizámos para $(a_n)$ funciona aqui.
+
+A ideia que surgiu foi esta: para duas sucessões racionais de Cauchy $(x_n)$ e $(y_n)$, formemos a sucessão das suas distâncias,
+\[
+ d_n=|x_n-y_n|.
+\]
+\questao{Se $(d_n)$ converge em $\Q$ para zero, poderemos tratar $(x_n)$ e $(y_n)$ como duas representações do mesmo objeto?}
+
+É uma proposta de identificação, ainda não a afirmação de que já existe um limite fora dos racionais. Escrevamos provisoriamente
+\[
+ (x_n)\sim(y_n)
+ \quad\Longleftrightarrow\quad
+ \forall\varepsilon\in\Q_{>0},\ \exists N\in\N,\
+ \forall n>N:\ |x_n-y_n|<\varepsilon.
+\]
+Ou, usando a convergência racional que já definimos, $\lim_{n\to\infty}|x_n-y_n|=0$.
+
+Antes de aceitar a identificação, quisemos saber se ela era coerente. Uma sucessão é equivalente a si própria, porque $|x_n-x_n|=0<\varepsilon$ para toda precisão positiva. A ordem dos representantes também não importa, porque
+\[
+ |x_n-y_n|=|y_n-x_n|.
+\]
+A dificuldade menos imediata era a transitividade.
+
+\questao{Se $(x_n)$ é equivalente a $(y_n)$ e $(y_n)$ é equivalente a $(z_n)$, será $(x_n)$ equivalente a $(z_n)$?}
+
+Para uma precisão $\varepsilon>0$, escolhemos $N_1$ e $N_2$ que tornem, respetivamente, $|x_n-y_n|$ e $|y_n-z_n|$ menores do que $\varepsilon/2$. A escolha
+\[
+ N=\max\{N_1,N_2\}
+\]
+permite que as duas desigualdades valham ao mesmo tempo. Pela desigualdade triangular,
+\[
+ |x_n-z_n|\le |x_n-y_n|+|y_n-z_n|<\varepsilon
+ \qquad(n>N).
+\]
+Assim, a relação que propusemos é reflexiva, simétrica e transitiva.
+
+\assentado{Definição e teorema que surgem da verificação}{Chama-se \emph{relação de equivalência} a uma relação reflexiva, simétrica e transitiva. A relação $\sim$ que acabámos de construir é uma relação de equivalência no conjunto das sucessões racionais de Cauchy.}
+
+\section{Um objeto que não depende da aproximação escolhida}
+
+Se várias sucessões são equivalentes, talvez possamos reuni-las e tratar o conjunto inteiro como um só objeto. Seja $\mathcal S$ o conjunto das sucessões racionais de Cauchy. Para uma sucessão $(x_n)\in\mathcal S$, consideremos
+\[
+ [(x_n)]=\{(y_n)\in\mathcal S:(y_n)\sim(x_n)\}.
+\]
+
+\questao{A classe obtida a partir de $(a_n)$ mudaria se escolhêssemos $(b_n)$ como ponto de partida?}
+
+Não. Se $(x_n)\sim(a_n)$ e $(a_n)\sim(b_n)$, a transitividade garante $(x_n)\sim(b_n)$. O caminho inverso usa a simetria e a mesma transitividade. Assim,
+\[
+ \boxed{[(a_n)]=[(b_n)].}
+\]
+Não tivemos de encontrar um limite racional comum; utilizámos somente relações entre sucessões.
+
+\assentado{Definição motivada pela escolha de representantes --- classe de equivalência}{A \emph{classe de equivalência} de uma sucessão de Cauchy $(x_n)$ é o conjunto de todas as sucessões de Cauchy equivalentes a ela. Denotaremos por $\mathcal E=\mathcal S/\!\sim$ o conjunto dessas classes.}
+
+Considerar cada classe como um novo objeto é uma proposta de construção. Para sabermos que estamos realmente a obter um sistema numérico, ainda teremos de definir operações e uma ordem coerente. Por enquanto, \emph{a classe não é definida como um limite desconhecido}; ela é um conjunto de sucessões racionais, que já sabemos manipular.
+
+\section{Os racionais já conhecidos cabem na construção?}
+
+Antes de aceitar novos objetos, perguntámo-nos se os racionais que conhecemos poderiam continuar presentes. A sucessão constante
+\[
+ (1,1,1,\ldots)
+\]
+é de Cauchy, assim como a sucessão $u_n=1-2^{-n}$ que tínhamos estudado. E a distância entre ambas é
+\[
+ \left|1-\left(1-\frac1{2^n}\right)\right|=\frac1{2^n}.
+\]
+Já sabemos torná-la inferior a qualquer precisão racional positiva. Portanto, ambas pertencem à mesma classe. Não há uma representação única do racional $1$.
+
+Para qualquer $r\in\Q$, a sucessão constante $(r,r,r,\ldots)$ é de Cauchy. Podemos então associar
+\[
+ F:\Q\longrightarrow\mathcal E,
+ \qquad F(r)=[(r,r,r,\ldots)].
+\]
+
+\questao{Poderão dois racionais distintos ficar identificados como uma só classe?}
+
+Se $r\ne s$, a distância entre as duas sucessões constantes é sempre o mesmo racional positivo $|r-s|$. Escolhendo, por exemplo, $\varepsilon=|r-s|/2$, essa distância nunca fica abaixo da precisão exigida. Logo, as sucessões não são equivalentes e $F(r)\ne F(s)$.
+
+\assentado{Proposição descoberta --- distinção dos racionais}{A correspondência $F$ é \emph{injetiva}: racionais distintos determinam classes distintas.}
+
+Chegámos a sugerir que $F$ seria bijetiva. Mas isso exigiria que \emph{toda} classe viesse de um racional, o que o nosso quadrado já impede. A classe $[(a_n)]$ não pode ser igual a $F(r)$ para nenhum $r\in\Q$: essa igualdade significaria $|a_n-r|\to0$, isto é, convergência de $(a_n)$ para um racional, que já excluímos.
+
+\assentado{Teorema obtido pelo contraexemplo}{A correspondência $F$ é injetiva, mas não é sobrejetiva sobre $\mathcal E$. O conjunto de classes contém representações de todos os racionais e também classes que não correspondem a qualquer racional.}
+
+Só mais tarde poderemos investigar quais propriedades tornam legítimo identificar a imagem $F(\Q)$ com uma cópia dos racionais dentro do sistema maior. Não chamaremos ainda a $\mathcal E$ um corpo ordenado completo: isso permanece por construir.
+
+\section{Se mudarmos a representação, a aritmética muda?}
+
+O quadrado motivou a primeira operação a experimentar. Se uma classe representa um comprimento, multiplicar por um racional deveria representar um alongamento desse comprimento. Tomámos duas sucessões equivalentes $(x_n)\sim(y_n)$ e perguntámos se
+\[
+ (2x_n)\sim(2y_n).
+\]
+Dada a precisão $\varepsilon>0$, basta pedir inicialmente $|x_n-y_n|<\varepsilon/2$. Então
+\[
+ |2x_n-2y_n|=2|x_n-y_n|<\varepsilon.
+\]
+A mesma ideia vale para um racional $r\ne0$: pedimos uma precisão $\varepsilon/|r|$. Para $r=0$, as duas sucessões resultantes são identicamente nulas. Além disso, multiplicar uma sucessão de Cauchy por $r$ produz outra sucessão de Cauchy, pois
+\[
+ |rx_m-rx_n|=|r|\,|x_m-x_n|.
+\]
+Esta experiência ensinou-nos uma exigência: \emph{uma operação nas classes não pode depender do representante escolhido}.
+
+Mas multiplicar por um racional conhecido ainda não é o mesmo que multiplicar duas classes arbitrárias. Antes disso, tentemos algo mais simples: a soma.
+
+\section{Uma soma que permanece dentro das classes}
+
+Se duas classes são representadas por $(x_n)$ e $(y_n)$, a primeira proposta foi somar os termos correspondentes:
+\[
+ (x_n)+(y_n)\quad\leadsto\quad(x_n+y_n).
+\]
+Logo apareceu uma dúvida: \emph{a sucessão resultante continuará a ser de Cauchy?} Por um instante, tentámos demonstrar que a soma converge para a soma dos limites. Mas essa via pressuporia que os limites racionais existem, precisamente o que o quadrado nos ensinou a não fazer.
+
+\questao{Como provar que $(x_n+y_n)$ é de Cauchy usando apenas a condição de Cauchy das duas parcelas?}
+
+Para quaisquer índices $m,n$,
+\[
+ \begin{aligned}
+ |(x_m+y_m)-(x_n+y_n)|
+ &\le |x_m-x_n|+|y_m-y_n|.
+ \end{aligned}
+\]
+Dada a precisão $\varepsilon>0$, cada sucessão de Cauchy fornece um índice a partir do qual a sua parcela é menor do que $\varepsilon/2$. Escolhendo o maior desses dois índices, obtemos
+\[
+ |(x_m+y_m)-(x_n+y_n)|<\varepsilon
+\]
+para todos os $m,n$ suficientemente grandes. A soma permanece, portanto, no conjunto $\mathcal S$.
+
+Ainda falta uma verificação. A mesma classe pode ser representada por sucessões diferentes, e a soma não pode mudar por causa dessa escolha.
+
+\questao{Se $(x_n)\sim(x'_n)$ e $(y_n)\sim(y'_n)$, será que as duas somas são equivalentes?}
+
+A desigualdade triangular reaparece:
+\[
+ \begin{aligned}
+ &|(x_n+y_n)-(x'_n+y'_n)|\\
+ &\hspace{2em}\le |x_n-x'_n|+|y_n-y'_n|.
+ \end{aligned}
+\]
+A equivalência de cada par permite tornar ambas as parcelas menores do que $\varepsilon/2$, a partir de um mesmo índice suficientemente grande. Logo, as duas somas são equivalentes.
+
+A experiência exigiu duas coisas distintas: \emph{fecho}, para assegurar que continuamos a ter uma sucessão de Cauchy, e \emph{independência dos representantes}, para garantir que a classe resultante não muda quando escolhemos outra sucessão equivalente.
+
+\assentado{Definição conquistada --- soma de classes}{Para classes de sucessões racionais de Cauchy, definimos
+\[
+ \boxed{[(x_n)]+[(y_n)]=[(x_n+y_n)].}
+\]
+A operação está \emph{bem definida}, porque acabámos de demonstrar tanto o fecho como a independência dos representantes.}
+
+Não é ainda necessário enumerar todas as leis algébricas que esta soma poderá satisfazer. O objetivo desta etapa foi descobrir por que a expressão faz sentido como uma operação entre as classes, e não apenas entre listas escolhidas arbitrariamente.
+
+\section{O próximo obstáculo: multiplicar duas classes}
+
+Regressemos ao lado do quadrado de área $2$, agora representado pela classe $[(a_n)]$. Se queremos que a nossa construção seja um sistema numérico capaz de descrever esse lado, teremos de conseguir multiplicar classes. Uma proposta natural é
+\[
+ [(x_n)]\cdot[(y_n)]\overset{?}{=}[(x_ny_n)].
+\]
+
+O que fizemos para a soma sugere duas perguntas inevitáveis. Primeiro, se $(x_n)$ e $(y_n)$ são de Cauchy, será $(x_ny_n)$ também de Cauchy? Segundo, a classe do produto será independente dos representantes escolhidos?
+
+A primeira pergunta já nos devolveu uma identidade algébrica:
+\[
+ x_my_m-x_ny_n
+ =x_m(y_m-y_n)+y_n(x_m-x_n).
+\]
+Daí resulta a estimativa
+\[
+ |x_my_m-x_ny_n|
+ \le |x_m|\,|y_m-y_n|+|y_n|\,|x_m-x_n|.
+\]
+
+Agora os erros aparecem multiplicados por $|x_m|$ e $|y_n|$. Ao contrário do que acontecia na soma, não basta pedir imediatamente que cada diferença seja menor do que $\varepsilon/2$. Precisamos de compreender como controlar esses novos fatores.
+
+\emaberto{Será possível demonstrar, apenas com a condição de Cauchy nos racionais, que os termos de uma sucessão de Cauchy ficam todos abaixo de uma mesma cota racional em valor absoluto? Se conseguirmos, poderemos retomar esta estimativa e investigar o fecho do produto.}
+
+Terminamos aqui, na dificuldade que surgiu da própria tentativa de multiplicar dois comprimentos. Não antecipámos a resposta: o próximo resultado terá de nascer desta pergunta.
+\vspace{8mm}
+\noindent\color{azul}\rule{\linewidth}{0.5pt}
+\vspace{2mm}
+\noindent\textbf{Fios que ficam guardados.} A razão $(b^2-a^2)/(b-a)=a+b$ poderá voltar quando estudarmos como a área varia com o lado. A possibilidade de subdividir a própria área, em vez dos lados, continua por explorar. E os axiomas de Peano deverão ser retomados para fundamentar a indução e a boa ordenação no ponto exato em que entraram nas demonstrações.
+
+\end{document}

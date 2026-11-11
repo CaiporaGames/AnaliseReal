@@ -1,0 +1,16 @@
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}A decisão inicial: investigar apenas com racionais}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Um pequeno prólogo aritmético a desenvolver}{1}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Primeira experiência: procurar o lado do quadrado}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Da experiência a uma regra}{2}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Como controlar o erro da área?}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Quantas subdivisões são necessárias?}{3}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Podemos pedir uma precisão arbitrária?}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Uma desigualdade encontrada por indução}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Da desigualdade a qualquer precisão racional}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Existe um racional cuja área seja exatamente 2?}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Uma propriedade de paridade}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}A ideia de produzir uma solução menor}{5}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Uma pergunta transforma-se em teorema}{6}{section.6}%
+\contentsline {section}{\numberline {7}As duas sucessões movem-se em sentidos opostos}{6}{section.7}%
+\contentsline {section}{\numberline {8}Onde interrompemos a investigação}{7}{section.8}%
